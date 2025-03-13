@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to EC2 using CodeDeploy
 
 on:
   push:
@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      # 1. 레포지토리에서 코드 체크아웃
+      - name: Checkout Code
         uses: actions/checkout@v3
 
+      # 2. AWS 인증 설정
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -20,9 +22,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
-      - name: Create Deployment
+      # 3. CodeDeploy에 배포 시작
+      - name: Deploy to CodeDeploy
         run: |
           aws deploy create-deployment \
-            --application-name EC2-deploy \ 
-            --deployment-group-name EC2-deploy-Group \ 
-            --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
+            --application-name EC2-deploy \
+            --deployment-group-name EC2-deploy-Group \
+            --github-location repository=wera4677/git_auto_EC2,commitId=${{ github.sha }}
