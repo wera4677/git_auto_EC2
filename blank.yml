@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -23,6 +23,6 @@ jobs:
       - name: Create Deployment
         run: |
           aws deploy create-deployment \
-            --application-name "your-application-name" \ # ✅ CodeDeploy 애플리케이션 이름 입력
-            --deployment-group-name "your-deployment-group-name" \ # ✅ CodeDeploy 배포 그룹 이름 입력
+            --application-name EC2-deploy \ # ✅ CodeDeploy 애플리케이션 이름 입력
+            --deployment-group-name EC2-deploy-Group \ # ✅ CodeDeploy 배포 그룹 이름 입력
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
