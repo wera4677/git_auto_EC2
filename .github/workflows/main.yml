@@ -23,6 +23,6 @@ jobs:
       - name: Create Deployment
         run: |
           aws deploy create-deployment \
-            --application-name EC2-deploy \ # ✅ CodeDeploy 애플리케이션 이름 입력
-            --deployment-group-name EC2-deploy-Group \ # ✅ CodeDeploy 배포 그룹 이름 입력
+            --application-name EC2-deploy \ 
+            --deployment-group-name EC2-deploy-Group \ 
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
